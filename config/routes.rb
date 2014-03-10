@@ -1,4 +1,11 @@
-Pixtr::Application.routes.draw do
+Pixtr::Application.routes.draw do 
+  root "galleries#index"
+  get "/galleries/new" => "galleries#new"
+  get "/galleries/:id" => "galleries#show", as: :gallery
+  post "/galleries" => "galleries#create"
+  get "/galleries/:id/edit" => "galleries#edit"
+  patch "/galleries/:id" => "galleries#update"
+  delete "/galleries/:id" => "galleries#destroy"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
