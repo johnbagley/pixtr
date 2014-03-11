@@ -1,1 +1,8 @@
-<h2>Images</h2>
+<h2><%= @image.name %></h2>
+
+<%= link_to "Edit Image", edit_image_path(@image) %>
+<%= link_to "Delete Image", @image, method: :delete, confir: "Are you sure you wan tto delte this image?" %>
+
+<p><%= @image.description %> </p>
+<p><%= @image.url %></p>
+<img src="<%= @image.url %>" >

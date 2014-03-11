@@ -3,7 +3,8 @@
 
 <%= link_to "Delete", gallery_path(@gallery), method: :delete %>
 <%= link_to "New Image", new_gallery_image_path(@gallery) %>
-
+<p>
 <% @gallery.images.each do |image| %>
   <img src="<%= image.url %>">
-<% end %>
+  <p><%= link_to "Image Page", image %></p>
+  <% end %>

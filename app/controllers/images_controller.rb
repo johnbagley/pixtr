@@ -11,10 +11,25 @@ class ImagesController < ApplicationController
     redirect_to gallery
   end
 
-  # def show
-  #   image = Image.find(params[:id])
-    
-  # end
+  def show
+    @image = Image.find(params[:id])
+  end
+
+  def edit
+    @image = Image.find(params[:id])
+  end
+
+  def update
+    image = Image.find(params[:id])
+    image.update(image_params)
+    redirect_to image_path
+  end
+
+  def destroy
+    image = Image.find(params[:id])
+    image.destroy
+    redirect_to gallery_path(image.gallery_id)
+  end
 
   private
 
