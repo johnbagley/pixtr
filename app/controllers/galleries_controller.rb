@@ -1,4 +1,5 @@
 class GalleriesController < ApplicationController
+  
   def index
     @galleries = Gallery.all
   end
@@ -13,7 +14,7 @@ class GalleriesController < ApplicationController
 
   def create
     @gallery = Gallery.create(gallery_params)
-    redirect_to "/galleries/#{@gallery.id}"
+    redirect_to galleries_path(gallery)
   end
 
   def edit
@@ -23,14 +24,13 @@ class GalleriesController < ApplicationController
   def update
     gallery = Gallery.find(params[:id])
     gallery.update(gallery_params)
-    redir
-    ect_to "/galleries/#{gallery.id}"
+    redirect_to galleries_path(gallery)
   end
   
   def destroy
     gallery = Gallery.find(params[:id])
     gallery.destroy
-    redirect_to "/"
+    redirect_to root_path
   end
 
   private

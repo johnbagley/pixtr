@@ -1,5 +1,9 @@
 <h1> <%= @gallery.name %> </h1>
-<%= link_to "Edit", "/galleries/#{@gallery.id}/edit" %>
+<%= link_to "Edit", edit_gallery_path(@gallery) %>
 
+<%= link_to "Delete", gallery_path(@gallery), method: :delete %>
+<%= link_to "New Image", new_gallery_image_path(@gallery) %>
 
-<%= link_to "Delete", "/galleries/#{@gallery.id}", method: :delete %>
+<% @gallery.images.each do |image| %>
+  <img src="<%= image.url %>">
+<% end %>
