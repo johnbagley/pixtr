@@ -1,10 +1,15 @@
 Pixtr::Application.routes.draw do 
   get "/galleries/random" => "random_galleries#show"
 
-  root "galleries#index"
+
+  root "homes#show"
 
   resources :galleries do 
-    resources :images, shallow: true  
+    resources :images, shallow: true      
+  end
+
+  resources :images, except: [:index, :new, :create] do 
+    resources :comments, only: [:create]
   end
 
   # get "/galleries/new" => "galleries#new"
