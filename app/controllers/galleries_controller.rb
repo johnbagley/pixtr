@@ -8,7 +8,7 @@ class GalleriesController < ApplicationController
 
   def show
     @gallery = Gallery.find(params[:id])
-    @images = @ gallery.images
+    @images = @gallery.images
   end
 
   def new
@@ -48,6 +48,5 @@ class GalleriesController < ApplicationController
   def gallery_params
     params.require(:gallery).permit(:name)
   end
-
  
 end
