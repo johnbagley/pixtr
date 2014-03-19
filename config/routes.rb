@@ -12,6 +12,8 @@ Pixtr::Application.routes.draw do
     resources :comments, only: [:create]
   end
 
+  resources :groups, only: [:index, :new, :create, :show]
+
   # get "/galleries/new" => "galleries#new"
   # get "/galleries/:id" => "galleries#show" #, as: :gallery
   # post "/galleries" => "galleries#create"
