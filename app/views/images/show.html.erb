@@ -8,6 +8,9 @@
 <p><%= @image.url %></p>
 
 <%= image_tag(@image.url, width: 200)  %>
+<p><%= @image.description %></p>
+<p>Added by: <%= link_to @image.user.email, @image.user %></p>
+<p>Added on: <%= @image.created_at.to_date %><p>
 
 <% if signed_in? %>
   <%= form_for([@image, @comment]) do |form| %>

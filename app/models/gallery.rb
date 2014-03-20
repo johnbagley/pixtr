@@ -4,5 +4,4 @@ class Gallery < ActiveRecord::Base
 
   validates :name, presence: true
   validates :user, presence: true
-
 end
