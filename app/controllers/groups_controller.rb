@@ -24,6 +24,8 @@ class GroupsController < ApplicationController
     @images = @group.images
   end
 
+
+
   private
 
   def group_params
