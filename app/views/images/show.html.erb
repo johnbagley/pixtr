@@ -4,8 +4,7 @@
 <%= link_to "Delete Image", @image, method: :delete, confirm: "Are you sure you want to delte this image?" %>
 
 
-<p><%= @image.description %> </p>
-<p><%= @image.url %></p>
+<br>
 
 <%= image_tag(@image.url, width: 200)  %>
 <p><%= @image.description %></p>

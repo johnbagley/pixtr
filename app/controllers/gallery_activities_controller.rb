@@ -19,11 +19,10 @@ class GalleriesController < ApplicationController
     @gallery = current_user.galleries.new(gallery_params)
     if @gallery.save
       current_user.followers.each do |follower|
-      follower.activities.create(
-        subject: @gallery,
-        type: 'GalleryActivity'
-      )
-    end
+        follower.activities.create(
+          subject: @gallery, 
+          type: "GalleryActivity")
+      end
       redirect_to @gallery
     else
       render :new

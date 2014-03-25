@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Clearance::User
 
+  has_many :activities
 
   has_many :galleries
   
@@ -32,7 +33,17 @@ class User < ActiveRecord::Base
     source: :image
 
   def follow(user)
-    followed_users << user 
+
+    # followed_users << user 
+    followed_user_relationship = followed_user_relationships.create(
+      followed_user: user
+    )
+    notify_followers(followed_user_relationship, "FollowingRelationshipActivity")
+    # followed_users.each do |followed_user| 
+    #   followed_user.activities.create(
+    #     subject: followed_user_relationship,
+    #     type: "FollowingRelationshipActivity")
+    # end
   end
 
   def following?(user)
@@ -44,7 +55,14 @@ class User < ActiveRecord::Base
   end
 
   def join(group)
-    groups << group 
+    # groups << group 
+    group_membership = group_memberships.create(group: group)
+    notify_followers(group_membership, "JoinGroupMembershipActivity")
+    # followers.each do |follower|
+    #   follower.activities.create(
+    #     subject: group_membership,
+    #     type: "JoinGroupMembershipActivity")
+    # end
   end
 
   def leave(group)
@@ -61,15 +79,33 @@ class User < ActiveRecord::Base
   # end
 
   def like(image)
-    liked_images << image
+    # liked_images << image
+    like = likes.create(image: image)
+    notify_followers(like, "LikeActivity")
+
+    # followers.each do |follower|
+    #   follower.activities.create(
+    #     subject: like, 
+    #     type: "LikeActivity")
+    # end
+
   end
 
   def likes?(image)
     liked_image_ids.include? image.id
   end
-  
+
   def unlike(image)
     liked_images.destroy(image)
+  end
+
+  def notify_followers(subject, type)
+    followers.each do |follower|
+      follower.activities.create(
+        subject: subject, 
+        type: type
+        )
+    end
   end
 
 end

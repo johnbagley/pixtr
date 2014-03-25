@@ -1,14 +1,15 @@
+
 class GalleriesController < ApplicationController
   before_action :authorize, except: [:show]
-
+  # after_action :method <-- never used
+  # around_action :method <-- never used
 
   def index
-    @galleries = current_user.galleries 
+    @galleries = current_user.galleries
   end
 
   def show
     @gallery = Gallery.find(params[:id])
-    @images = @gallery.images
   end
 
   def new
@@ -33,16 +34,16 @@ class GalleriesController < ApplicationController
   def edit
     @gallery = current_user.galleries.find(params[:id])
   end
-  
+
   def update
     @gallery = current_user.galleries.find(params[:id])
     if @gallery.update(gallery_params)
-      redirect_to @gallery
+      redirect_to gallery_path(@gallery)
     else
       render :edit
     end
   end
-  
+
   def destroy
     gallery = current_user.galleries.find(params[:id])
     gallery.destroy
@@ -54,5 +55,4 @@ class GalleriesController < ApplicationController
   def gallery_params
     params.require(:gallery).permit(:name)
   end
- 
 end
