@@ -1,10 +1,11 @@
 class Like < ActiveRecord::Base
-  belongs_to :image
+  belongs_to :likable, polymorphic: true
   belongs_to :user
 
   has_many :activities, as: :subject, dependent: :destroy
 
-  validates :image_id,
-    uniqueness: { scope: :user_id}
+  validates :user, presence: true, uniqueness: { scope: :likable }
+  validates :likable, presence: true
+    
 
 end

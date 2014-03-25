@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   has_many :likes, dependent: :destroy
   has_many :liked_images, through: :likes,
-    source: :image
+    source: :likable, source_type: "Image"
 
   def follow(user)
 
@@ -78,9 +78,9 @@ class User < ActiveRecord::Base
   #   likes.create(image_id: image.id)
   # end
 
-  def like(image)
+  def like(target)
     # liked_images << image
-    like = likes.create(image: image)
+    like = likes.create(likable: target)
     notify_followers(like, "LikeActivity")
 
     # followers.each do |follower|

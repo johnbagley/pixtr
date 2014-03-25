@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :authorize
+  before_action :authorize, except: [:show]
 
   def index
     @groups = current_user.groups
