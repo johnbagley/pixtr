@@ -1,13 +1,12 @@
 <h1> <%= @gallery.name %> </h1>
 
-<% if @gallery.user == current_user %>
-  <%= link_to "Edit", edit_gallery_path(@gallery) %>
-<% end %>
-
-<div>
-  <% if @gallery.user == current_user %>
-    <%= link_to "Delete", gallery_path(@gallery), method: :delete %>
-    <%= link_to "New Image", new_gallery_image_path(@gallery) %>
+<% if signed_in? %>
+<%= pluralize(@gallery.likes.count, "Like") %>
+  <% if current_user.likes? @gallery %>
+    <%= button_to "Unlike Gallery", unlike_gallery_path(@gallery), method: :delete %>
+  <% else %>
+    <%= button_to "Like Gallery", like_gallery_path(@gallery) %>
   <% end %>
-</div>
+<% end %>
 <%= render @images %>
+

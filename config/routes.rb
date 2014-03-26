@@ -7,14 +7,18 @@ Pixtr::Application.routes.draw do
   resource :dashboard, only: [:show]
 
   resources :galleries do 
+    member do 
+      post "like" => "gallery_likes#create"
+      delete "unlike" => "gallery_likes#destroy"
+    end
     resources :images, shallow: true      
   end
 
   resources :images, except: [:index, :new, :create] do 
     resources :comments, only: [:create]
     member do 
-      post "like" => "likes#create"
-      delete "unlike" => "likes#destroy"
+      post "like" => "image_likes#create"
+      delete "unlike" => "image_likes#destroy"
     end
     
   end
@@ -23,6 +27,9 @@ Pixtr::Application.routes.draw do
     member do 
       post "join" => "group_memberships#create"
       delete "leave" => "group_memberships#delete"
+      post "like" => "group_likes#create"
+      delete "unlike" => "group_likes#destroy"  
+
     end
   end
 
@@ -32,6 +39,8 @@ Pixtr::Application.routes.draw do
       delete "unfollow" => "following_relationships#destroy"
     end
   end
+
+
 
   # get "/galleries/new" => "galleries#new"
   # get "/galleries/:id" => "galleries#show" #, as: :gallery

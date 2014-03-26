@@ -4,7 +4,7 @@ class Like < ActiveRecord::Base
 
   has_many :activities, as: :subject, dependent: :destroy
 
-  validates :user, presence: true, uniqueness: { scope: :likable }
+  validates :user, presence: true, uniqueness: { scope: [:likable_id, :likable_type] }
   validates :likable, presence: true
     
 

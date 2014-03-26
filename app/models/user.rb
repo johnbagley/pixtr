@@ -91,12 +91,14 @@ class User < ActiveRecord::Base
 
   end
 
-  def likes?(image)
-    liked_image_ids.include? image.id
+  def likes?(target)
+    # liked_image_ids.include? image.id
+    likes.exists?(likable: target)
   end
 
-  def unlike(image)
-    liked_images.destroy(image)
+  def unlike(target)
+    like = likes.find_by(likable: target)
+    like.destroy
   end
 
   def notify_followers(subject, type)
