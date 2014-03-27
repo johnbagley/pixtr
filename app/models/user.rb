@@ -110,4 +110,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  def member?(group)
+    group_ids.include? group.id
+  end
 end

@@ -3,6 +3,11 @@
 <% if signed_in? %>
   <div id="count"><%= pluralize(@group.likes.count, "Like") %></div>
 
+  <div id="join-group-button">
+    <%= render "join_group_button", group: @group %>
+  </div>
+
+
   <div id="like-button">
     <% if current_user.likes? @group %>
       <%= button_to "Unlike Group", unlike_group_path(@group), remote: true, method: :delete %>
@@ -14,3 +19,4 @@
 
 <%= render @images %>
 
+ 
