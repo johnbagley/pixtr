@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
     # groups << group 
     group_membership = group_memberships.create(group: group)
     notify_followers(group_membership, "JoinGroupMembershipActivity")
+  end
     # followers.each do |follower|
     #   follower.activities.create(
     #     subject: group_membership,
@@ -102,11 +103,14 @@ class User < ActiveRecord::Base
   end
 
   def notify_followers(subject, type)
-    followers.each do |follower|
-      follower.activities.create(
-        subject: subject, 
-        type: type
-        )
+    if subject.persisted?
+      followers.each do |follower|
+        follower.activities.create(
+          subject: subject, 
+          type: type
+          )
+        ActivityMailer.activity_email(@subject).deliver
+      end
     end
   end
 

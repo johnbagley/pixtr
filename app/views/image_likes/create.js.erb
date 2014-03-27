@@ -1,0 +1,5 @@
+template = "<%=j button_to "Unlike Image", unlike_image_path(@image), remote: true, method: :delete %>";
+$("#image-like-button").html(template);
+
+template = "<%=j pluralize(@image.likes.count, "like") %>";
+$("#count").html(template);

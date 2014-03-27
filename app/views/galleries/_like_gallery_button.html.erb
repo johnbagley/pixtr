@@ -1,0 +1,11 @@
+<div>
+  <%= pluralize(gallery.likes.count, "Like") %>
+</div>
+
+<div id="like-gallery-button">
+  <% if current_user.likes? gallery %>
+    <%= button_to "Unlike Gallery", unlike_gallery_path(gallery), remote: true, method: :delete %>
+  <% else %>
+    <%= button_to "Like Gallery", like_gallery_path(gallery), remote: true %>
+  <% end %>
+</div>

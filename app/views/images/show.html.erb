@@ -11,13 +11,17 @@
 <p>Added by: <%= link_to @image.user.email, @image.user %></p>
 <p>Added on: <%= @image.created_at.to_date %><p>
 
+<div id="image-like-button">
 <% if current_user.likes? @image %>
-  <%= button_to "Unlike Image", unlike_image_path(@image), method: :delete %>
+  <%= button_to "Unlike Image", unlike_image_path(@image), remote: true, method: :delete %>
 <% else %>
-  <%= button_to "Like Image", like_image_path(@image) %>
+  <%= button_to "Like Image", like_image_path(@image), remote: true %>
 <% end %>
+</div>
 
+<div id="count">
 <%= pluralize(@image.likes.count, "like") %>
+</div>
 
 <% if signed_in? %>
   <%= form_for([@image, @comment]) do |form| %>
