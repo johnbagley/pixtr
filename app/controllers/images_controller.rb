@@ -1,4 +1,4 @@
-class ImagesController < ApplicationController
+  class ImagesController < ApplicationController
 
   def new
     @gallery = current_user.galleries.find(params[:gallery_id])

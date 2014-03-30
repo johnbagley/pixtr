@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   include Clearance::User
 
+  has_many :comments
+
   has_many :activities
 
   has_many :galleries
@@ -64,7 +66,7 @@ class User < ActiveRecord::Base
     #     subject: group_membership,
     #     type: "JoinGroupMembershipActivity")
     # end
-  end
+  
 
   def leave(group)
     group_membership_ids.include? group.id
@@ -109,7 +111,7 @@ class User < ActiveRecord::Base
           subject: subject, 
           type: type
           )
-        ActivityMailer.activity_email(@subject).deliver
+        ActivityMailer.activity_email(subject).deliver
       end
     end
   end

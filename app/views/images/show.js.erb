@@ -1,0 +1,3 @@
+$('tbody#institutions').html('<%=j render(@institutions) %>');
+ 
+$('#paginator').html('<%=j (paginate(@institutions, remote: true).to_s) %>');

@@ -1,5 +1,9 @@
 <div>
-  <%= comment.user.email %> said:
-  <%= comment.body %>
-  <%= time_ago_in_words(comment.created_at) %> ago
+  <%= div_for comment do %>
+    <%= comment.user.email %> said:
+    <%= comment.body %>
+    <%= time_ago_in_words(comment.created_at) %> ago
+    <%= link_to "Delete Comment", comment, remote: true, method: :delete %>
+  <% end %>
 </div>
+
