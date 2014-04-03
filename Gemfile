@@ -8,6 +8,10 @@ group :development do
   gem "bullet"
 end
 
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+
+gem 'dotenv-rails', :groups => [:development, :test]
+
 group :production do 
   gem 'rails_12factor'
 end

@@ -4,6 +4,10 @@ Pixtr::Application.routes.draw do
 
   root "homes#show"
 
+  resources :charges
+
+  resource :profile, only: [:show]
+
   resource :dashboard, only: [:show]
 
   resources :tags, only: [:show]

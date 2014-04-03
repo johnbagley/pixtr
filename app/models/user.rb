@@ -122,4 +122,14 @@ class User < ActiveRecord::Base
   def member?(group)
     group_ids.include? group.id
   end
+
+  def upgrade
+    update(upgrade_status: true)
+  end
+
+  def upgraded?
+    upgrade_status
+  end
+
+
 end
