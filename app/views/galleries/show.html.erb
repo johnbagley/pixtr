@@ -1,6 +1,9 @@
 <h1> <%= @gallery.name %> </h1>
 
 <% if signed_in? %>
+  <%= link_to "Edit", edit_gallery_path(@gallery) %>
+  <%= link_to "Delete", @gallery,  method: :delete %>
+  <%= link_to "New image", new_gallery_image_path(@gallery) %>
   <div id="like-gallery-button">
     <%= render "like_gallery_button", gallery: @gallery %>
   </div>

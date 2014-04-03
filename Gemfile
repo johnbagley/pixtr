@@ -2,13 +2,19 @@ source 'https://rubygems.org'
 
 group :development do
   gem "pry-rails"
-  gem "better_errors"
+  # gem "better_errors"
   gem "binding_of_caller"
+  gem "quiet_assets"
+  gem "bullet"
 end
 
 group :production do 
   gem 'rails_12factor'
 end
+
+gem 'delayed_job_active_record'
+
+gem "daemons"
 
 gem 'kaminari'
 

@@ -6,6 +6,8 @@ Pixtr::Application.routes.draw do
 
   resource :dashboard, only: [:show]
 
+  resources :tags, only: [:show]
+
   resources :galleries do 
     member do 
       post "like" => "gallery_likes#create"
@@ -24,6 +26,7 @@ Pixtr::Application.routes.draw do
 
   resources :comments, only: [:destroy]
 
+  
 
   resources :groups, only: [:index, :new, :create, :show] do 
     member do 

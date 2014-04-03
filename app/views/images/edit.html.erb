@@ -1,6 +1,8 @@
 <%= form_for(@image) do |form| %>
   <% render "form_errors", target: @image %>
   <%= form.text_field :name %>
+  <%= form.text_field :tag_list, placeholder: "Tags" %>
   <%= form.collection_check_boxes :group_ids, @groups.all, :id, :name %>
   <%= form.submit "Submit" %>
 <% end %>
+

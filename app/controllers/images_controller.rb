@@ -3,6 +3,7 @@
   def new
     @gallery = current_user.galleries.find(params[:gallery_id])
     @image = Image.new
+    @tag = Tag.new
   end
 
   def create
@@ -18,7 +19,8 @@
   def show
     @image = Image.find(params[:id])
     @comment = Comment.new
-    @comments = @image.comments.recent.page(params[:page]).per(2)
+    @comments = @image.comments.recent.page(params[:page]).per(2).includes(:user)
+    @tags = @image.tags
   end
 
   def edit
@@ -49,6 +51,7 @@
       :name,
       :url,
       :description,
+      :tag_list,
       group_ids: []
       )
   end

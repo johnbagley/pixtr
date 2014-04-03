@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Clearance::User
 
+
   has_many :comments
 
   has_many :activities
@@ -13,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :group_memberships, 
     foreign_key: :member_id
   
-  has_many :groups,  # 4 methods: groups, groups=, group_ids, group_ids=
+  has_many :groups,  
     through: :group_memberships
 
   has_many :followed_user_relationships, 
@@ -40,7 +41,7 @@ class User < ActiveRecord::Base
     followed_user_relationship = followed_user_relationships.create(
       followed_user: user
     )
-    notify_followers(followed_user_relationship, "FollowingRelationshipActivity")
+    delay.notify_followers(followed_user_relationship, user, "FollowingRelationshipActivity")
     # followed_users.each do |followed_user| 
     #   followed_user.activities.create(
     #     subject: followed_user_relationship,
@@ -59,7 +60,7 @@ class User < ActiveRecord::Base
   def join(group)
     # groups << group 
     group_membership = group_memberships.create(group: group)
-    notify_followers(group_membership, "JoinGroupMembershipActivity")
+    delay.notify_followers(group_membership, group, "JoinGroupMembershipActivity")
   end
     # followers.each do |follower|
     #   follower.activities.create(
@@ -84,7 +85,7 @@ class User < ActiveRecord::Base
   def like(target)
     # liked_images << image
     like = likes.create(likable: target)
-    notify_followers(like, "LikeActivity")
+    delay.notify_followers(like, target, "LikeActivity")
 
     # followers.each do |follower|
     #   follower.activities.create(
@@ -104,12 +105,14 @@ class User < ActiveRecord::Base
     like.destroy
   end
 
-  def notify_followers(subject, type)
+  def notify_followers(subject, target, type)
     if subject.persisted?
       followers.each do |follower|
         follower.activities.create(
           subject: subject, 
-          type: type
+          type: type,
+          target: target,
+          actor: self
           )
         ActivityMailer.activity_email(subject).deliver
       end

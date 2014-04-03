@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140325184214) do
+ActiveRecord::Schema.define(version: 20140402181616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,9 +23,13 @@ ActiveRecord::Schema.define(version: 20140325184214) do
     t.string   "subject_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "actor_id"
+    t.integer  "target_id"
+    t.string   "target_type"
   end
 
   add_index "activities", ["subject_id", "subject_type"], name: "index_activities_on_subject_id_and_subject_type", using: :btree
+  add_index "activities", ["target_id", "target_type"], name: "index_activities_on_target_id_and_target_type", using: :btree
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
@@ -38,6 +42,22 @@ ActiveRecord::Schema.define(version: 20140325184214) do
 
   add_index "comments", ["image_id"], name: "index_comments_on_image_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "following_relationships", force: true do |t|
     t.integer  "followed_user_id"
@@ -101,6 +121,17 @@ ActiveRecord::Schema.define(version: 20140325184214) do
   end
 
   add_index "likes", ["likable_id", "likable_type"], name: "index_likes_on_likable_id_and_likable_type", using: :btree
+
+  create_table "taggings", force: true do |t|
+    t.integer "image_id"
+    t.integer "tag_id"
+  end
+
+  create_table "tags", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
 
   create_table "users", force: true do |t|
     t.datetime "created_at",                     null: false

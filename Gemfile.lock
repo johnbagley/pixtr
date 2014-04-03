@@ -28,12 +28,12 @@ GEM
     arel (4.0.2)
     atomic (1.1.15)
     bcrypt (3.1.7)
-    better_errors (1.1.0)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.1.4)
+    bullet (4.8.0)
+      activesupport
+      uniform_notifier (>= 1.4.0)
     clearance (1.2.1)
       bcrypt
       email_validator (~> 1.4)
@@ -46,7 +46,13 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    daemons (1.1.9)
     debug_inspector (0.0.2)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     email_validator (1.4.0)
       activemodel
     erubis (2.7.0)
@@ -78,6 +84,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -134,20 +142,24 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.4.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  better_errors
   binding_of_caller
+  bullet
   clearance
   coffee-rails (~> 4.0.0)
+  daemons
+  delayed_job_active_record
   jbuilder (~> 1.2)
   jquery-rails
   kaminari
   pg
   pry-rails
+  quiet_assets
   rails (= 4.0.3)
   rails_12factor
   sass-rails (~> 4.0.0)
